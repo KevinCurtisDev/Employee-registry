@@ -5,3 +5,17 @@ const searchHtml = `<form action="#" method="get">
                     </form>`
 
 searchContainer.innerHTML = searchHtml;
+
+
+//Implemented the fetch API to retrieve random user data
+fetch('https://randomuser.me/api/?results=12').then(
+    response => {
+        if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+
+          response.json().then(data => console.log(data));
+    }
+)
