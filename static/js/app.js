@@ -165,3 +165,18 @@ document.querySelector('#modal-next').addEventListener('click', () => {
             );
     }
 });
+
+
+
+//Search event listener and functionality
+document.querySelector('#search-input').addEventListener('input', (e) => {
+    const nameList = document.querySelectorAll('#name');
+    nameList.forEach(name => {
+        if(!name.innerHTML.includes(e.target.value.toLowerCase())) {
+            name.parentElement.parentElement.style.display = "none";
+        } else {
+            //otherwise show the item
+            name.parentElement.parentElement.style.display = "block";
+         }
+    });
+});
