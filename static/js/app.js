@@ -57,6 +57,16 @@ const createEmployeeCard = (img, firstName, lastName, email, city, state, num) =
 const createModal = () => {
     let modalContainer = document.createElement('div');
     modalContainer.setAttribute('class', 'modal-container');
+    modalContainer.innerHTML = `
+                                    <div class="modal">
+                                        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
+
+                                    </div>
+                                    <div class="modal-btn-container">
+                                        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
+                                        <button type="button" id="modal-next" class="modal-next btn">Next</button>
+                                    </div>
+                                    `
 
     document.getElementsByTagName('BODY')[0].append(modalContainer);
 }
@@ -64,30 +74,29 @@ const createModal = () => {
 createModal();
 
 const populateModal = (img, firstName, lastName, email, city, street, state, phone, birthday, num) => {
-    document.querySelector('.modal-container').innerHTML = `
-                                    <div class="modal">
-                                        <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
-                                        <div class="modal-info-container" data=${num}>
-                                            <img class="modal-img" src=${img} alt="profile picture">
-                                            <h3 id="name" class="modal-name cap">${firstName} ${lastName}</h3>
-                                            <p class="modal-text">${email}</p>
-                                            <p class="modal-text cap">${city}</p>
-                                            <hr>
-                                            <p class="modal-text">${phone}</p>
-                                            <p class="modal-text">${street}, ${city}, ${state}, OR 12213213</p>
-                                            <p class="modal-text">Birthday: ${birthday}</p>
-                                        </div>
-                                    </div>
-    
-                                    <div class="modal-btn-container">
-                                        <button type="button" id="modal-prev" class="modal-prev btn">Prev</button>
-                                        <button type="button" id="modal-next" class="modal-next btn">Next</button>
-                                    </div>
-                                    `
+    let modalCard = document.createElement('div');
+    modalCard.setAttribute('data', num);
+    modalCard.setAttribute('class', 'modal-info-container');
+    modalCard.innerHTML = `
+                            <img class="modal-img" src=${img} alt="profile picture">
+                            <h3 id="name" class="modal-name cap">${firstName} ${lastName}</h3>
+                            <p class="modal-text">${email}</p>
+                            <p class="modal-text cap">${city}</p>
+                            <hr>
+                            <p class="modal-text">${phone}</p>
+                            <p class="modal-text">${street}, ${city}, ${state}, OR 12213213</p>
+                            <p class="modal-text">Birthday: ${birthday}</p>
+                        `
+
+    document.querySelector('.modal').appendChild(modalCard);
 }
 
 //gallery event listener to trigger modal
 document.querySelector('#gallery').addEventListener('click', (e) => {
+    if(document.querySelector('.modal-info-container')) {
+        document.querySelector('.modal-info-container').remove();
+    }
+    
     if(e.target.className === 'card') {
         let empDetail = employeeList[e.target.getAttribute('data')];
         populateModal(empDetail.picture.large,
@@ -118,9 +127,41 @@ document.querySelector('#modal-close-btn').addEventListener('click', () => {
 });
 
 document.querySelector('#modal-prev').addEventListener('click', () => {
+    let currentIndex = Number(document.querySelector('.modal-info-container').getAttribute('data'));
+    let nextIndex = currentIndex - 1;
+    if(nextIndex >= 0) {
+        document.querySelector('.modal-info-container').remove();
 
+        populateModal(employeeList[nextIndex].picture.large,
+            employeeList[nextIndex].name.first,
+            employeeList[nextIndex].name.last,
+            employeeList[nextIndex].email,
+            employeeList[nextIndex].location.city,
+            employeeList[nextIndex].location.street,
+            employeeList[nextIndex].location.state,
+            employeeList[nextIndex].cell,
+            employeeList[nextIndex].dob.date,
+            nextIndex
+            );
+    }
 });
 
 document.querySelector('#modal-next').addEventListener('click', () => {
-    
+    let currentIndex = Number(document.querySelector('.modal-info-container').getAttribute('data'));
+    let nextIndex = currentIndex + 1;
+    if(nextIndex < employeeList.length) {
+        document.querySelector('.modal-info-container').remove();
+
+        populateModal(employeeList[nextIndex].picture.large,
+            employeeList[nextIndex].name.first,
+            employeeList[nextIndex].name.last,
+            employeeList[nextIndex].email,
+            employeeList[nextIndex].location.city,
+            employeeList[nextIndex].location.street,
+            employeeList[nextIndex].location.state,
+            employeeList[nextIndex].cell,
+            employeeList[nextIndex].dob.date,
+            nextIndex
+            );
+    }
 });
