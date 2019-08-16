@@ -26,7 +26,7 @@ const createEmployeeCard = (img, firstName, lastName, email, city, state) => {
     galleryImageContainer.appendChild(empCard)
 }
 
-
+//function to generate a modal
 const createModal = () => {
     let modalContainer = document.createElement('div');
     modalContainer.setAttribute('class', 'modal-container');
@@ -55,17 +55,29 @@ const createModal = () => {
     document.getElementsByTagName('BODY')[0].append(modalContainer);
 }
 
+createModal();
+
+//gallery event listener to trigger modal
 document.querySelector('#gallery').addEventListener('click', (e) => {
-    if(e.target.getAttribute('class', 'card')) {
-        createModal();
+    if(e.target.className === 'card') {
+        document.querySelector('.modal-container').style.display = "block"
     }
 });
 
+//modal event listener
+document.querySelector('.modal-container').addEventListener('click', (e) => {
+    if(e.target.className === "modal-container") {
+        document.querySelector('.modal-container').style.display = "none";
+    }
+});
 
-
+//model close button event listener
+document.querySelector('#modal-close-btn').addEventListener('click', () => {
+    document.querySelector('.modal-container').style.display = "none";
+});
 
 //Implemented the fetch API to retrieve random user data
-fetch('https://randomuser.me/api/?results=12').then(
+fetch('https://randomuser.me/api/?results=12&nat=gb,us').then(
     response => {
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
