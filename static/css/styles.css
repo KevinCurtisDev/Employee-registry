@@ -16,11 +16,12 @@ html, body {
 body {
     font-family: "Nunito", sans-serif;
     text-align: center;
-    background: rgba(235, 235, 235, 0.9);
+    background: rgba(200, 201, 201, 0.9);
 }
 
 header {
     padding: 15px 5px 5px;
+    background-color: rgb(11, 4, 36);
 }
 
 .header-inner-container {
@@ -30,7 +31,7 @@ header {
 
 header h1 {
     font-size: 1.25em;
-    color: rgba(50, 50, 50, 0.9);
+    color: #fff;
     margin-top: 35px;
 }
 
@@ -78,10 +79,6 @@ header h1 {
 }
   
 .card {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
     cursor: pointer;
     width: 100%;
     max-width: 360px;
@@ -92,9 +89,15 @@ header h1 {
     border: 1px solid rgba(50, 50, 50, 0.3);
     transition: .4s ease-out;
     overflow: hidden;
+    box-shadow: 1px 1px 3px gray;
+}
+
+.card > * {
+    pointer-events: none;
 }
 
 .card-img {
+    float: left;
     width: 95px;
     margin: 10px 15px auto 10px;
     border-radius: 50%;
@@ -102,6 +105,7 @@ header h1 {
 
 .card-info-container {
     text-align: left;
+    float: left;
 }
 
 .card-name {
