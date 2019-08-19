@@ -12,7 +12,7 @@ fetch('https://randomuser.me/api/?results=12&nat=gb,us').then(
           response.json().then(data => {
             for(let i = 0; i < 12; i++) {
                 employeeList.push(data.results[i])
-                createEmployeeCard(data.results[i].picture.thumbnail,
+                createEmployeeCard(data.results[i].picture.large,
                                    data.results[i].name.first,
                                    data.results[i].name.last,
                                    data.results[i].email,
@@ -179,4 +179,9 @@ document.querySelector('#search-input').addEventListener('input', (e) => {
             name.parentElement.parentElement.style.display = "block";
          }
     });
+});
+
+//prevent page from reloading
+document.querySelector('form').addEventListener('submit', (e) => {
+    e.target.preventDefault();
 });
