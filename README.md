@@ -1,6 +1,6 @@
 # Employee Registry App
 
-<img src="" style="width: 800px; max-width: 100%; height: auto; margin: 0 auto;">
+<img src="https://github.com/KevinCurtisDev/Employee-registry/blob/master/static/images/employees.png" style="width: 800px; max-width: 100%; height: auto; margin: 0 auto;">
 
 ## Summary
 An employee registry that retieves employee details from an API using the fetch api. Employees can be filtered through a dynamic search bar (added to the page with unobtrusive JavaScript). Extra details can be viewed in a modal once the employee card has been selected.
