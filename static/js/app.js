@@ -157,12 +157,18 @@ document.querySelector('#modal-close-btn').addEventListener('click', () => {
     document.querySelector('.modal-container').style.display = "none";
 });
 
+
+/********************************* MODAL SCROLL BUTTONS ****************************/
+
+//Get the previous button and populate modal with next employee's details
 document.querySelector('#modal-prev').addEventListener('click', () => {
     let currentIndex = Number(document.querySelector('.modal-info-container').getAttribute('data'));
     let nextIndex = currentIndex - 1;
+    //Make sure we can only go back as far as the first employee entry
     if(nextIndex >= 0) {
         document.querySelector('.modal-info-container').remove();
 
+        //inject html with employee data
         populateModal(employeeList[nextIndex].picture.large,
             employeeList[nextIndex].name.first,
             employeeList[nextIndex].name.last,
@@ -178,12 +184,16 @@ document.querySelector('#modal-prev').addEventListener('click', () => {
     }
 });
 
+
+//Get the next button and populate modal with next employee's details
 document.querySelector('#modal-next').addEventListener('click', () => {
     let currentIndex = Number(document.querySelector('.modal-info-container').getAttribute('data'));
     let nextIndex = currentIndex + 1;
+    //Make sure we can only go as far as the size of the employee array
     if(nextIndex < employeeList.length) {
         document.querySelector('.modal-info-container').remove();
 
+        //inject html with employee data
         populateModal(employeeList[nextIndex].picture.large,
             employeeList[nextIndex].name.first,
             employeeList[nextIndex].name.last,
@@ -199,7 +209,11 @@ document.querySelector('#modal-next').addEventListener('click', () => {
     }
 });
 
+/********************************************************************************/
 
+
+
+/************************************* SEARCH BAR ********************************/
 
 //Search event listener and functionality
 document.querySelector('#search-input').addEventListener('input', (e) => {
@@ -219,3 +233,5 @@ document.querySelector('#search-input').addEventListener('input', (e) => {
 document.querySelector('form').addEventListener('submit', (e) => {
     e.target.preventDefault();
 });
+
+/**********************************************************************************/
