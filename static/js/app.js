@@ -1,17 +1,24 @@
+//Empty array to push fetched employees into
 const employeeList = [];
+
+/**************************** FETCH DATA *************************************/
 
 //Implemented the fetch API to retrieve random user data
 fetch('https://randomuser.me/api/?results=12&nat=gb,us').then(
     response => {
+        //Console log an error message it site fails to fetch data
         if (response.status !== 200) {
             console.log('Looks like there was a problem. Status Code: ' +
               response.status);
             return;
           }
-
+          //convert fetched string of data into json
           response.json().then(data => {
+            //loop through the data
             for(let i = 0; i < 12; i++) {
+                //push each data entry int the employee array
                 employeeList.push(data.results[i])
+                //call the createEmployeeCard function to build the employee list in the dom
                 createEmployeeCard(data.results[i].picture.large,
                                    data.results[i].name.first,
                                    data.results[i].name.last,
@@ -24,6 +31,13 @@ fetch('https://randomuser.me/api/?results=12&nat=gb,us').then(
     }
 )
 
+/************************************************************************************/
+
+
+
+/******************************* SEARCH BAR *****************************************/
+
+//create a search bar and append it to the dom
 const searchContainer = document.querySelector('.search-container')
 const searchHtml = `<form action="#" method="get">
                         <input type="search" id="search-input" class="search-input" placeholder="Search...">
@@ -32,14 +46,19 @@ const searchHtml = `<form action="#" method="get">
 
 searchContainer.innerHTML = searchHtml;
 
+/*************************************************************************************/
 
+
+/******************************** CREATE EMPLOYEE CARD HTML ****************************/
 const galleryImageContainer = document.querySelector('#gallery');
 
 const createEmployeeCard = (img, firstName, lastName, email, city, state, num) => {
+    //Create the html element and set its attributes
     let empCard = document.createElement('div');
     empCard.setAttribute('class', 'card');
     empCard.setAttribute('data', num)
 
+    //Generate the html
     empCard.innerHTML =  `
                     <div class="card-img-container">
                         <img class="card-img" src=${img} alt="profile picture">
@@ -53,10 +72,18 @@ const createEmployeeCard = (img, firstName, lastName, email, city, state, num) =
     galleryImageContainer.appendChild(empCard)
 }
 
+/****************************************************************************************/
+
+
+
+/*********************************** CREATE THE MODAL ***********************************/
 //function to generate a modal
 const createModal = () => {
+    //Create the modal div element
     let modalContainer = document.createElement('div');
+    //Set the modal attributes
     modalContainer.setAttribute('class', 'modal-container');
+    //Create the modal iner html
     modalContainer.innerHTML = `
                                     <div class="modal">
                                         <button type="button" id="modal-close-btn" class="modal-close-btn"><strong>X</strong></button>
@@ -72,6 +99,9 @@ const createModal = () => {
 }
 
 createModal();
+
+/*****************************************************************************************/
+
 
 const populateModal = (img, firstName, lastName, email, city, street, state, phone, birthday, num) => {
     let modalCard = document.createElement('div');
@@ -172,10 +202,11 @@ document.querySelector('#modal-next').addEventListener('click', () => {
 document.querySelector('#search-input').addEventListener('input', (e) => {
     const nameList = document.querySelectorAll('#name');
     nameList.forEach(name => {
+        //If the empoyee name doesn't contain a search term letter, don't display the employee card
         if(!name.innerHTML.includes(e.target.value.toLowerCase())) {
             name.parentElement.parentElement.style.display = "none";
         } else {
-            //otherwise show the item
+            //otherwise show the employee card
             name.parentElement.parentElement.style.display = "block";
          }
     });
