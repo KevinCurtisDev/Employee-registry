@@ -103,7 +103,7 @@ createModal();
 /*****************************************************************************************/
 
 
-const populateModal = (img, firstName, lastName, email, city, street, state, phone, birthday, num) => {
+const populateModal = (img, firstName, lastName, email, city, street, state, postcode, phone, birthday, num) => {
     let modalCard = document.createElement('div');
     modalCard.setAttribute('data', num);
     modalCard.setAttribute('class', 'modal-info-container');
@@ -114,7 +114,7 @@ const populateModal = (img, firstName, lastName, email, city, street, state, pho
                             <p class="modal-text cap">${city}</p>
                             <hr>
                             <p class="modal-text">${phone}</p>
-                            <p class="modal-text">${street}, ${city}, ${state}, OR 12213213</p>
+                            <p class="modal-text">${street}, ${city}, ${state}, OR ${postcode}</p>
                             <p class="modal-text">Birthday: ${birthday}</p>
                         `
 
@@ -136,8 +136,9 @@ document.querySelector('#gallery').addEventListener('click', (e) => {
                     empDetail.location.city,
                     empDetail.location.street,
                     empDetail.location.state,
+                    empDetail.location.postcode,
                     empDetail.cell,
-                    empDetail.dob.date,
+                    empDetail.dob.date.slice(0, 10),
                     e.target.getAttribute('data')
                     );
         document.querySelector('.modal-container').style.display = "block";
@@ -169,8 +170,9 @@ document.querySelector('#modal-prev').addEventListener('click', () => {
             employeeList[nextIndex].location.city,
             employeeList[nextIndex].location.street,
             employeeList[nextIndex].location.state,
+            employeeList[nextIndex].location.postcode,
             employeeList[nextIndex].cell,
-            employeeList[nextIndex].dob.date,
+            employeeList[nextIndex].dob.date.slice(0, 10),
             nextIndex
             );
     }
@@ -189,8 +191,9 @@ document.querySelector('#modal-next').addEventListener('click', () => {
             employeeList[nextIndex].location.city,
             employeeList[nextIndex].location.street,
             employeeList[nextIndex].location.state,
+            employeeList[nextIndex].location.postcode,
             employeeList[nextIndex].cell,
-            employeeList[nextIndex].dob.date,
+            employeeList[nextIndex].dob.date.slice(0, 10),
             nextIndex
             );
     }
